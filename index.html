@@ -2,26 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
   <title>Code Quiz</title>
 </head>
-<body>
-  <header class="header">
+<body class="">
+    <header class="">
+      <nav class="flex items-center justify-between flex-wrap p-6">
+        <div class="flex items-center flex-shrink-0 text-white mr-6">
+          <a class="text-purple-500" id="highScores">View Highscores</a>
+        </div>
+          <div class="flex items-center flex-shrink-0 text-white ml-6">
+            <div class="inline-block text-purple-800" id="timer"></div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main class="container">
+      <h1 class="text-center font-sans text-4xl text-purple-800 mb-4">Coding Quiz</h1>
+      <div class="flex justify-center">
+        <button class="p-2 border-2 border-purple-500 rounded hover:bg-purple-400 hover:text-white" id="start">Start Quiz!</button>
+      </div>
+    </main>
+    <footer class="footer">
+    </footer>
 
-  </header>
-  <main class="container">
-    <nav class="navbar">
-      <div id="highScores"></div>
-      <div id="timer"></div>
-    </nav>
-    
-
-    <button id="wrong">Wrong Answer</button>
-
-
-  </main>
-  <footer class="footer">
-
-  </footer>
+  <script src="script.js"></script>
 </body>
 </html>
  
