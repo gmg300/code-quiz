@@ -1,11 +1,14 @@
 
 // Timer
 const startBtn = document.getElementById('start')
-let totalTime = 5 * 60 * 1000
-// let penaltyTime = 30 * 1000
-let tickTime = 1000
+const timerEl = document.getElementById('timer')
+const timerLabel = document.getElementById('timerLabel')
 
 function timer() {
+  let totalTime = 5 * 60 * 1000
+  let penaltyTime = 30 * 1000
+  let tickTime = 1000
+
   function formatTime(ms) {
     let minutes = Math.floor(ms / 60000)
     let seconds = ms % 60000
@@ -13,7 +16,7 @@ function timer() {
     if (seconds < 10) {
       seconds = "0" + seconds
     }
-    let timerEl = document.getElementById('timer')
+    timerLabel.innerHTML = "Time:"
     timerEl.innerHTML = `${minutes}:${seconds}`
   }
   function tick() {
