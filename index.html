@@ -22,7 +22,7 @@
     <main class="container mx-auto">
       <div class="text-center mx-3" id="introCard">
         <h1 class="font-sans text-4xl text-purple-800 mb-4">Coding Quiz</h1>
-        <p class="font-sans text-lg text-purple-600 mb-6">This is a multiple choice coding assessment. You will be given 2 minutes to answer 10 questions. Incorrect answers will be penalized by deducting 15 seconds from the timer. Highscores are based on total time left after answering all 10 questions.   </p>
+        <div class="font-sans text-lg text-purple-600 mb-6">This is a multiple choice coding assessment. You will be given 2 minutes to answer 10 questions. Incorrect answers will be penalized by deducting 15 seconds from the timer. Highscores are based on total time left after answering all 10 questions.</div>
         <div class="flex justify-center">
           <button class="p-2 border-2 border-purple-600 rounded hover:bg-purple-600 hover:text-white" id="start">Start Quiz!</button>
         </div>
@@ -36,8 +36,14 @@
           <div class="p-2 font-sans text-white mb-2 mx-3 border rounded bg-purple-800 hover:bg-purple-600" id="answer3">Answer 3</div>
           <div class="p-2 font-sans text-white mb-2 mx-3 border rounded bg-purple-800 hover:bg-purple-600" id="answer4">Answer 4</div>
         </div>
+        <div class="hidden text-lg mx-3 px-2 pt-1 border-t border-red-500 text-red-500" id="feedback">Wrong</div>
       </div>
-      <div class="hidden text-lg mx-3 px-2 pt-1 border-t border-red-500 text-red-500" id="feedback">Wrong</div>
+      <div class="mx-3" id="outroCard">
+        <h1 class="font-sans text-4xl text-purple-800 mb-2">All Done!</h1>
+        <div class="font-sans text-lg text-purple-600 mb-2" id="score"></div>
+        <input class="font-sans text-lg p-2 mr-1 border" placeholder="Enter your initials" type="text">
+        <button class="p-2 border-2 border-purple-600 rounded hover:bg-purple-600 hover:text-white" id="submit">Submit</button>
+      </div>
     </main>
     <footer class="footer">
     </footer>

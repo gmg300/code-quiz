@@ -1,6 +1,4 @@
-
-// Questions
-// Set hooks and variables
+// Set constants
 const questionCard = document.getElementById('questionCard')
 const questionNumber = document.getElementById('questionNumber')
 const questionContent = document.getElementById('questionContent')
@@ -9,6 +7,12 @@ const answer2 = document.getElementById('answer2')
 const answer3 = document.getElementById('answer3')
 const answer4 = document.getElementById('answer4')
 const feedback = document.getElementById('feedback')
+const startBtn = document.getElementById('start')
+const timerEl = document.getElementById('timer')
+const timerLabel = document.getElementById('timerLabel')
+const introCard = document.getElementById('introCard')
+
+// Set global variables
 let questions = [
   {
     content: "This is question number 1, it'll have a really interesting question that you have to answer.",
@@ -48,13 +52,58 @@ let questions = [
     answer3: "not even close",
     answer4: "correct"
     
-  }
+  },
+  {
+    content: "This is question 6",
+    answer1: "good try",
+    answer2: "you suck",
+    answer3: "not even close",
+    answer4: "correct"
+    
+  },
+  {
+    content: "This is question 7",
+    answer1: "good try",
+    answer2: "you suck",
+    answer3: "not even close",
+    answer4: "correct"
+    
+  },
+  {
+    content: "This is question 8",
+    answer1: "good try",
+    answer2: "you suck",
+    answer3: "not even close",
+    answer4: "correct"
+    
+  },
+  {
+    content: "This is question 9",
+    answer1: "good try",
+    answer2: "you suck",
+    answer3: "not even close",
+    answer4: "correct"
+    
+  },
+  {
+    content: "This is question 10",
+    answer1: "good try",
+    answer2: "you suck",
+    answer3: "not even close",
+    answer4: "correct"
+    
+  },
 ]
 let question = ''
 let questionIndex = 1
+let totalTime = 2 * 60 * 1000
+let penaltyTime = 15 * 1000
+let tickTime = 1000
 
+// Questions
 function askQuestion() {
   // Display question card
+  feedback.style.display = "none"
   questionCard.style.display = "inline"
   // Set question number and get random question from questions array
   question = questions[Math.floor(Math.random() * questions.length)]
@@ -67,33 +116,21 @@ function askQuestion() {
   answer4.innerHTML = `${question.answer4}`
 }
 
-
 // Answers
 function answerQuestion(e) {
   if(e.target.innerHTML !== "correct") {
-    e.target.style.backgroundColor = "red"
-  } else {
-    e.target.style.backgroundColor = "green"
-  }
+    totalTime -= penaltyTime
+  } 
   questions.splice(question, 1)
   questionIndex++
   if(questions.length > 0) {
     askQuestion()
   } else {
-    endQuiz()
+    stopQuiz()
   }
 }
 
 // Timer
-// Set hooks and variables
-const startBtn = document.getElementById('start')
-const timerEl = document.getElementById('timer')
-const timerLabel = document.getElementById('timerLabel')
-const introCard = document.getElementById('introCard')
-let totalTime = 2 * 60 * 1000
-let penaltyTime = 15 * 1000
-let tickTime = 1000
-
 function timer() {
   // Format to display readable time 
   function formatTime(ms) {
@@ -114,25 +151,26 @@ function timer() {
   // Start timer
   setInterval(tick, tickTime)
 }
+function stopTimer() {
 
-// Start Quiz
-function playQuiz() {
+}
+
+// Start/Stop Quiz
+function startQuiz() {
   timer()
   introCard.style.display = "none"
   if(questions.length === 0) {
-    endQuiz()
+    stopQuiz()
   } else {
     askQuestion()
   }
 }
-
-// End Quiz
-function endQuiz() {
+function stopQuiz() {
   questionCard.style.display = "none"
 }
 
 // Buttons
-startBtn.addEventListener('click', playQuiz)
+startBtn.addEventListener('click', startQuiz)
 answer1.addEventListener('click', answerQuestion)
 answer2.addEventListener('click', answerQuestion)
 answer3.addEventListener('click', answerQuestion)
