@@ -1,2 +1,11 @@
-
+#scoreboard li {
+    background-color: #805ad5;
+    color: white;
+    margin-bottom: .5rem;
+}
+#scoreboard li:hover {
+    background-color: #b794f4;
+    color: white;
+    margin-bottom: .5rem;
+}
 

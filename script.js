@@ -17,7 +17,8 @@ const user = document.getElementById('userInitials')
 const submitBtn = document.getElementById('submit')
 const gameOver = document.getElementById('gameOver')
 const resetBtn1 = document.getElementById('tryAgain1')
-const highscores = document.getElementById('highscores')
+const viewHighscores = document.getElementById('viewHighscores')
+const scoreboardCard = document.getElementById('scoreboardCard')
 const scoreboard = document.getElementById('scoreboard')
 const clearScore = document.getElementById('clearScore')
 const resetBtn2 = document.getElementById('tryAgain2')
@@ -110,6 +111,7 @@ let totalTime = 2 * 60 * 1000
 let penaltyTime = 15 * 1000
 let tickTime = 1000
 let finalScore = ''
+let highscores = localStorage.getItem("score")
 
 // Questions
 function askQuestion() {
@@ -197,16 +199,19 @@ function resetQuiz() {
 function calcScore() {
   let finalTime = timerEl.innerHTML
   let finalMinute = parseInt(finalTime.charAt(0))
-  let finalSecond1 = parseInt(finalTime.charAt(2))
-  let finalSecond2 = parseInt(finalTime.charAt(3))
-  finalScore = (finalMinute * 60) + finalSecond1 + finalSecond2
+  let finalSecond = finalTime.charAt(2) + finalTime.charAt(3)
+  finalScore = (finalMinute * 60) + parseInt(finalSecond)
 }
 function submitScore(){
   outroCard.style.display = "none"
-  scoreboard.style.display = "flex"
+  scoreboardCard.style.display = "flex"
+  let addUserScore = finalScore + ` - ${user.value}`
+  let newScore = document.createElement("li")
+  newScore.textContent = addUserScore
+  scoreboard.appendChild(newScore)
 }
 function showHighscores() {
-  scoreboard.style.display = "flex"
+  scoreboardCard.style.display = "flex"
 }
 
 // Buttons
@@ -217,7 +222,7 @@ answer3.addEventListener('click', answerQuestion)
 answer4.addEventListener('click', answerQuestion)
 submitBtn.addEventListener('click', submitScore)
 // resetBtn1.addEventListener('click', resetQuiz)
-highscores.addEventListener('click', showHighscores)
+viewHighscores.addEventListener('click', showHighscores)
 // resetBtn2.addEventListener('click', resetQuiz)
 
 
