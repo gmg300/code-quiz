@@ -10,7 +10,7 @@
     <header class="mx-3">
       <nav class="flex items-center justify-between flex-wrap p-6 mb-6">
         <div class="flex items-center flex-shrink-0 text-white mr-6">
-          <a class="text-xl text-purple-600" id="highScores">View Highscores</a>
+          <a class="text-xl text-purple-600" id="highscores">View Highscores</a>
         </div>
           <div class="flex items-center flex-shrink-0 text-white ml-6">
             <div class="inline-block text-xl text-purple-800 pr-1" id="timerLabel"></div>
@@ -38,11 +38,15 @@
         </div>
         <div class="hidden text-lg mx-3 px-2 pt-1 border-t border-red-500 text-red-500" id="feedback">Wrong</div>
       </div>
-      <div class="mx-3" id="outroCard">
+      <div class="mx-3 text-center hidden" id="outroCard">
         <h1 class="font-sans text-4xl text-purple-800 mb-2">All Done!</h1>
         <div class="font-sans text-lg text-purple-600 mb-2" id="score"></div>
         <input class="font-sans text-lg p-2 mr-1 border" placeholder="Enter your initials" type="text">
         <button class="p-2 border-2 border-purple-600 rounded hover:bg-purple-600 hover:text-white" id="submit">Submit</button>
+      </div>
+      <div class="mx-3 text-center hidden" id="gameOver">
+        <h1 class="font-sans text-4xl text-red-600 mb-2">You Ran Out Of Time!</h1>
+        <button class="p-2 border-2 border-purple-600 rounded hover:bg-purple-600 hover:text-white" id="tryAgain">Try Again?</button>
       </div>
     </main>
     <footer class="footer">

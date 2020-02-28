@@ -11,6 +11,12 @@ const startBtn = document.getElementById('start')
 const timerEl = document.getElementById('timer')
 const timerLabel = document.getElementById('timerLabel')
 const introCard = document.getElementById('introCard')
+const outroCard = document.getElementById('outroCard')
+const score = document.getElementById('score')
+const submitBtn = document.getElementById('submitBtn')
+const gameOver = document.getElementById('gameOver')
+const resetBtn = document.getElementById('tryAgain')
+const highscores = document.getElementById('highscores')
 
 // Set global variables
 let questions = [
@@ -99,6 +105,7 @@ let questionIndex = 1
 let totalTime = 2 * 60 * 1000
 let penaltyTime = 15 * 1000
 let tickTime = 1000
+let finalScore = ''
 
 // Questions
 function askQuestion() {
@@ -132,6 +139,8 @@ function answerQuestion(e) {
 
 // Timer
 function timer() {
+  // Start timer
+  let interval = setInterval(tick, tickTime)
   // Format to display readable time 
   function formatTime(ms) {
     let minutes = Math.floor(ms / 60000)
@@ -147,26 +156,49 @@ function timer() {
   function tick() {
     totalTime -= tickTime
     formatTime(totalTime)
+    if(totalTime < 1 && questions.length > 0) {
+      clearInterval(interval)
+      timerEl.innerHTML = '0:00'
+      timerEl.style.color = "red"
+      stopQuiz()
+    } else if(questions.length < 1) {
+      clearInterval(interval)
+      timerEl.style.color = "green"
+      stopQuiz()
+    }
   }
-  // Start timer
-  setInterval(tick, tickTime)
-}
-function stopTimer() {
-
 }
 
-// Start/Stop Quiz
+// Start/Stop/Reset Quiz
 function startQuiz() {
   timer()
   introCard.style.display = "none"
-  if(questions.length === 0) {
-    stopQuiz()
-  } else {
-    askQuestion()
-  }
+  askQuestion()  
 }
 function stopQuiz() {
+  calcScore()
   questionCard.style.display = "none"
+  if(totalTime < 1) {
+    gameOver.style.display = "block"
+  } else {
+    score.innerHTML = `Final score: ${finalScore}`
+    outroCard.style.display = "block"
+  }
+}
+function resetQuiz() {
+
+}
+
+// Scores
+function calcScore() {
+  let finalTime = timerEl.innerHTML
+  let finalMinute = parseInt(finalTime.charAt(0))
+  let finalSecond1 = parseInt(finalTime.charAt(2))
+  let finalSecond2 = parseInt(finalTime.charAt(3))
+  finalScore = (finalMinute * 60) + finalSecond1 + finalSecond2
+}
+function showHighscores() {
+  scoreboard.style.display = "block"
 }
 
 // Buttons
@@ -175,4 +207,8 @@ answer1.addEventListener('click', answerQuestion)
 answer2.addEventListener('click', answerQuestion)
 answer3.addEventListener('click', answerQuestion)
 answer4.addEventListener('click', answerQuestion)
+// submitBtn.addEventListener('click', submitScore)
+// resetBtn.addEventListener('click', resetQuiz)
+highscores.addEventListener('click', showHighscores)
+
 
