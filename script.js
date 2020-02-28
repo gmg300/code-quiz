@@ -13,10 +13,14 @@ const timerLabel = document.getElementById('timerLabel')
 const introCard = document.getElementById('introCard')
 const outroCard = document.getElementById('outroCard')
 const score = document.getElementById('score')
-const submitBtn = document.getElementById('submitBtn')
+const user = document.getElementById('userInitials')
+const submitBtn = document.getElementById('submit')
 const gameOver = document.getElementById('gameOver')
-const resetBtn = document.getElementById('tryAgain')
+const resetBtn1 = document.getElementById('tryAgain1')
 const highscores = document.getElementById('highscores')
+const scoreboard = document.getElementById('scoreboard')
+const clearScore = document.getElementById('clearScore')
+const resetBtn2 = document.getElementById('tryAgain2')
 
 // Set global variables
 let questions = [
@@ -111,7 +115,7 @@ let finalScore = ''
 function askQuestion() {
   // Display question card
   feedback.style.display = "none"
-  questionCard.style.display = "inline"
+  questionCard.style.display = "flex"
   // Set question number and get random question from questions array
   question = questions[Math.floor(Math.random() * questions.length)]
   // Insert in HTML
@@ -156,7 +160,7 @@ function timer() {
   function tick() {
     totalTime -= tickTime
     formatTime(totalTime)
-    if(totalTime < 1 && questions.length > 0) {
+    if(totalTime < 1) {
       clearInterval(interval)
       timerEl.innerHTML = '0:00'
       timerEl.style.color = "red"
@@ -179,10 +183,10 @@ function stopQuiz() {
   calcScore()
   questionCard.style.display = "none"
   if(totalTime < 1) {
-    gameOver.style.display = "block"
+    gameOver.style.display = "flex"
   } else {
     score.innerHTML = `Final score: ${finalScore}`
-    outroCard.style.display = "block"
+    outroCard.style.display = "flex"
   }
 }
 function resetQuiz() {
@@ -197,8 +201,12 @@ function calcScore() {
   let finalSecond2 = parseInt(finalTime.charAt(3))
   finalScore = (finalMinute * 60) + finalSecond1 + finalSecond2
 }
+function submitScore(){
+  outroCard.style.display = "none"
+  scoreboard.style.display = "flex"
+}
 function showHighscores() {
-  scoreboard.style.display = "block"
+  scoreboard.style.display = "flex"
 }
 
 // Buttons
@@ -207,8 +215,9 @@ answer1.addEventListener('click', answerQuestion)
 answer2.addEventListener('click', answerQuestion)
 answer3.addEventListener('click', answerQuestion)
 answer4.addEventListener('click', answerQuestion)
-// submitBtn.addEventListener('click', submitScore)
-// resetBtn.addEventListener('click', resetQuiz)
+submitBtn.addEventListener('click', submitScore)
+// resetBtn1.addEventListener('click', resetQuiz)
 highscores.addEventListener('click', showHighscores)
+// resetBtn2.addEventListener('click', resetQuiz)
 
 
