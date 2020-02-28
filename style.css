@@ -3,9 +3,11 @@
     color: white;
     margin-bottom: .5rem;
 }
-#scoreboard li:hover {
+#scoreboard li:hover, #scoreboard li:active {
     background-color: #b794f4;
     color: white;
     margin-bottom: .5rem;
 }
+
+
 
