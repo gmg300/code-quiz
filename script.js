@@ -107,6 +107,8 @@ var questions = [
       wrong3: "Mexico"
     },
   ];
+var questionsAlreadyAnswered = []
+var randomQuestionNumber = '';
 var question = '';
 var questionIndex = 1;
 // Post Quiz Events variables
@@ -171,7 +173,11 @@ function stopTimer() {
 // Questions
 function askQuestion() {
     // Set question number and get random question from questions array
-    question = questions[Math.floor(Math.random() * questions.length)];
+    console.log(questions)
+    randomQuestionNumber = Math.floor(Math.random() * questions.length)
+    console.log(randomQuestionNumber)
+    question = questions[randomQuestionNumber];
+    console.log(question)
     // Insert in HTML
     questionNumberEl.innerHTML = 'Question ' + questionIndex;
     questionContentEl.innerHTML = question.content;
@@ -187,8 +193,8 @@ function askQuestion() {
 }
 
 function answerQuestion(event) {
-  console.log(event.target)
-    if(event.target.innerHTML !== "correct") {
+    var correct = question.correct;
+    if(event.target.innerHTML !== correct) {
         secondsElapsed += penaltyTime;
         setTimeout(function(){
             feedbackWrongEl.style.display = "block";
@@ -200,7 +206,7 @@ function answerQuestion(event) {
     }
     feedbackWrongEl.style.display = "none";
     feedbackCorrectEl.style.display = "none";
-    questions.splice(question, 1);
+    questions.splice(randomQuestionNumber, 1);
     questionIndex++;
     if(questions.length > 0) {
         askQuestion();
@@ -230,87 +236,6 @@ function stopQuiz() {
 
 // function resetQuiz() {
 //     totalTime = 2 * 60 * 1000
-//     questions = [
-//       {
-//         content: "This is question number 1, it'll have a really interesting question that you have to answer.",
-//         answer1: "totally wrong",
-//         answer2: "correct",
-//         answer3: "nah",
-//         answer4: "almost"
-//       },
-//       {
-//         content: "This is question number 2, it'll be different than question 1 but you pretty much do the same thing and answer it to the best of your ability.",
-//         answer1: "good try",
-//         answer2: "you suck",
-//         answer3: "not even close",
-//         answer4: "correct"
-        
-//       },
-//       {
-//         content: "This is question 3",
-//         answer1: "good try",
-//         answer2: "you suck",
-//         answer3: "not even close",
-//         answer4: "correct"
-        
-//       },
-//       {
-//         content: "This is question 4",
-//         answer1: "good try",
-//         answer2: "you suck",
-//         answer3: "not even close",
-//         answer4: "correct"
-        
-//       },
-//       {
-//         content: "This is question 5",
-//         answer1: "good try",
-//         answer2: "you suck",
-//         answer3: "not even close",
-//         answer4: "correct"
-        
-//       },
-//       {
-//         content: "This is question 6",
-//         answer1: "good try",
-//         answer2: "you suck",
-//         answer3: "not even close",
-//         answer4: "correct"
-        
-//       },
-//       {
-//         content: "This is question 7",
-//         answer1: "good try",
-//         answer2: "you suck",
-//         answer3: "not even close",
-//         answer4: "correct"
-        
-//       },
-//       {
-//         content: "This is question 8",
-//         answer1: "good try",
-//         answer2: "you suck",
-//         answer3: "not even close",
-//         answer4: "correct"
-        
-//       },
-//       {
-//         content: "This is question 9",
-//         answer1: "good try",
-//         answer2: "you suck",
-//         answer3: "not even close",
-//         answer4: "correct"
-        
-//       },
-//       {
-//         content: "This is question 10",
-//         answer1: "good try",
-//         answer2: "you suck",
-//         answer3: "not even close",
-//         answer4: "correct"
-        
-//       },
-//     ]
 //     question = ''
 //     questionIndex = 1
 //     scoreboardCard.style.display = "none"
