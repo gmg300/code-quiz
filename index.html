@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assets/style/style.css">
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
   <title>Code Quiz</title>
 </head>
@@ -27,7 +27,7 @@
       <!-- Introduction Card -->
       <div class="flex flex-col items-center text-center mx-5 p-3 border-4 border-purple-800 rounded-lg" id="intro-card">
         <h1 class="select-none font-sans text-6xl text-purple-800 mb-4">Coding Quiz</h1>
-        <div class="select-none font-sans text-3xl text-purple-600 mb-6">This is a multiple choice coding assessment. You will be given 2 minutes to answer 10 questions. Incorrect answers will be penalized by deducting 15 seconds from the timer. Highscores are based on total time left after answering all 10 questions.</div>
+        <div class="select-none font-sans text-3xl text-purple-600 mb-6">This is a multiple choice geography quiz! You will be given 2 minutes to answer all 10 questions. Incorrect answers will be penalized by deducting 15 seconds from the timer. Scores are based on total seconds left after answering all 10 questions.</div>
         <div class="flex justify-center mb-4">
           <button class="select-none text-2xl text-purple-600 p-2 border-2 border-purple-600 rounded hover:bg-purple-600 hover:text-white" id="start-quiz">Start Quiz!</button>
         </div>
@@ -36,9 +36,9 @@
       <div class="hidden flex flex-col mx-5 p-5 border-4 border-purple-800 rounded-lg" id="question-card">
         <div class="select-none font-sans text-5xl text-purple-800 mb-3" id="question-number">Question 1</div>
         <div class="select-none font-sans text-3xl text-purple-600 mb-6" id="question-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum voluptas rerum aut temporibus ad vel maxime, magnam sequi facere sunt officiis placeat veritatis tempore quisquam repellendus corrupti explicabo, qui labore quis itaque amet eligendi aspernatur. Quidem architecto nihil totam ducimus corrupti laboriosam sunt aspernatur aperiam nostrum facere! Praesentium, maxime ab.</div>
-        <ul class="flex flex-col mb-4" id="answer-list"></ul>
-        <div class="hidden text-xl mx-3 px-2 pt-1 border-t border-red-500 text-red-500 italic" id="feedback-wrong">Wrong!</div>
-        <div class="hidden text-xl mx-3 px-2 pt-1 border-t border-green-500 text-green-500 italic" id="feedback-correct">Correct!</div>
+        <ul class="flex flex-col mb-2" id="answer-list"></ul>
+        <div class="hidden text-2xl text-center mx-3 px-2 py-2 border rounded bg-red-600 text-white" id="feedback-wrong">Wrong!</div>
+        <div class="hidden text-2xl text-center mx-3 px-2 py-2 border rounded bg-green-500 text-white" id="feedback-correct">Correct!</div>
       </div>
       <!-- Success Card -->
       <div class="hidden flex flex-col items-center mx-5 p-3 border-4 border-purple-800 rounded-lg " id="success-card">
@@ -68,7 +68,7 @@
     </main>
   
 
-  <script src="script.js"></script>
+  <script src="assets/js/script.js"></script>
 </body>
 </html>
  
