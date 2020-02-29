@@ -37,83 +37,74 @@ var interval;
 // Question variables
 var questions = [
     {
-      content: "This is question 1.",
-      answer1: "totally wrong",
-      answer2: "correct",
-      answer3: "nah",
-      answer4: "almost"
+      content: "The temple of Preah Vihear is located in which country?",
+      wrong1: "India",
+      correct: "Cambodia",
+      wrong2: "Indonesia",
+      wrong3: "Mongolia"
     },
     {
-      content: "This is question 2.",
-      answer1: "good try",
-      answer2: "you suck",
-      answer3: "not even close",
-      answer4: "correct"
-      
+      content: "Minsk is the capital of which country?",
+      wrong1: "Estonia",
+      wrong2: "Romania",
+      wrong3: "Hungary",
+      correct: "Belarus"
     },
     {
-      content: "This is question 3",
-      answer1: "good try",
-      answer2: "you suck",
-      answer3: "not even close",
-      answer4: "correct"
-      
+      content: "The city, once known as Edo and now one of the largest cities in the world is in which country?",
+      correct: "Japan",
+      wrong1: "India",
+      wrong2: "Brazil",
+      wrong3: "Mexico" 
     },
     {
-      content: "This is question 4",
-      answer1: "good try",
-      answer2: "you suck",
-      answer3: "not even close",
-      answer4: "correct"
-      
+      content: "The temple of Prambanan is located in which country?",
+      wrong1: "Malaysia",
+      wrong2: "Thailand",
+      wrong3: "India",
+      correct: "Indonesia"
     },
     {
-      content: "This is question 5",
-      answer1: "good try",
-      answer2: "you suck",
-      answer3: "not even close",
-      answer4: "correct"
-      
+      content: "Dodoma is the capital of which country?",
+      wrong1: "Morroco",
+      correct: "Tanzania",
+      wrong2: "Sudan",
+      wrong3: "Bolivia"
     },
     {
-      content: "This is question 6",
-      answer1: "good try",
-      answer2: "you suck",
-      answer3: "not even close",
-      answer4: "correct"
-      
+      content: "Xochicalco is located in which country?",
+      wrong1: "Peru",
+      correct: "Mexico",
+      wrong2: "Chile",
+      wrong3: "Costa Rica"
     },
     {
-      content: "This is question 7",
-      answer1: "good try",
-      answer2: "you suck",
-      answer3: "not even close",
-      answer4: "correct"
-      
+      content: "The city of Allepo is in which country?",
+      wrong1: "Iran",
+      wrong2: "Spain",
+      wrong3: "Angola",
+      correct: "Syria" 
     },
     {
-      content: "This is question 8",
-      answer1: "good try",
-      answer2: "you suck",
-      answer3: "not even close",
-      answer4: "correct"
-      
+      content: "Karachi is in what country?",
+      correct: "Pakistan",
+      wrong1: "Iran",
+      wrong2: "India",
+      wrong3: "Nepal"
     },
     {
-      content: "This is question 9",
-      answer1: "good try",
-      answer2: "you suck",
-      answer3: "not even close",
-      answer4: "correct"
-      
+      content: "The ancient city of Carthage is in which country?",
+      correct: "Tunisia",
+      wrong1: "Greece",
+      wrong2: "Italy",
+      wrong3: "Turkey"
     },
     {
-      content: "This is question 10",
-      answer1: "good try",
-      answer2: "you suck",
-      answer3: "not even close",
-      answer4: "correct"
-      
+      content: "Lagos is in what country?",
+      wrong1: "Panama",
+      wrong2: "Peru",
+      correct: "Nigeria",
+      wrong3: "Mexico"
     },
   ];
 var question = '';
@@ -195,8 +186,9 @@ function askQuestion() {
     } 
 }
 
-function answerQuestion(e) {
-    if(e.target.innerHTML !== "correct") {
+function answerQuestion(event) {
+  console.log(event.target)
+    if(event.target.innerHTML !== "correct") {
         secondsElapsed += penaltyTime;
         setTimeout(function(){
             feedbackWrongEl.style.display = "block";
