@@ -1,223 +1,50 @@
-// Set constants
-const questionCard = document.getElementById('questionCard')
-const questionNumber = document.getElementById('questionNumber')
-const questionContent = document.getElementById('questionContent')
-const answer1 = document.getElementById('answer1')
-const answer2 = document.getElementById('answer2')
-const answer3 = document.getElementById('answer3')
-const answer4 = document.getElementById('answer4')
-const feedback = document.getElementById('feedback')
-const startBtn = document.getElementById('start')
-const timerEl = document.getElementById('timer')
-const timerLabel = document.getElementById('timerLabel')
-const introCard = document.getElementById('introCard')
-const outroCard = document.getElementById('outroCard')
-const score = document.getElementById('score')
-const userInput = document.getElementById('userInitials')
-const scoreForm = document.getElementById('scoreForm')
-const gameOver = document.getElementById('gameOver')
-const resetBtn1 = document.getElementById('tryAgain1')
-const viewHighscores = document.getElementById('viewHighscores')
-const scoreboardCard = document.getElementById('scoreboardCard')
-const scoreboard = document.getElementById('scoreboard')
-const clearScore = document.getElementById('clearScore')
-const resetBtn2 = document.getElementById('tryAgain2')
+// DOM selection
+// Nav elements
+var viewHighscoresBtn = document.getElementById("view-highscores");
+var timerCardEl = document.getElementById("timer-card");
+var timerMinutesEl = document.getElementById("timer-minutes");
+var timerSecondsEl = document.getElementById("timer-seconds");
+// Introduction Card elements
+var introCardEl = document.getElementById("intro-card");
+var startQuizBtn = document.getElementById("start-quiz");
+// Question Card elements
+var questionCardEl = document.getElementById("question-card");
+var questionNumberEl = document.getElementById("question-number");
+var questionContentEl = document.getElementById("question-content");
+var answerListEl = document.getElementById("answer-list");
+var feedbackWrongEl = document.getElementById("feedback-wrong");
+var feedbackCorrectEl = document.getElementById("feedback-correct");
+// Success Card elements
+var successCardEl = document.getElementById("success-card");
+var showScoreEl = document.getElementById("show-score");
+var scoreForm = document.getElementById("score-form");
+var userInput = document.getElementById("user-input");
+var submitFormBtn = document.getElementById("submit");
+// Fail Card elements
+var failCardEl = document.getElementById("fail-card");
+var failResetBtn = document.getElementById("fail-reset-quiz");
+// Highscores Card elements
+var highscoresCardEl = document.getElementById("highscores-card");
+var highscoreListEl = document.getElementById("highscore-list");
+var successResetBtn = document.getElementById("success-reset-quiz");
 
-// Set global variables
-let questions = [
-  {
-    content: "This is question number 1, it'll have a really interesting question that you have to answer.",
-    answer1: "totally wrong",
-    answer2: "correct",
-    answer3: "nah",
-    answer4: "almost"
-  },
-  {
-    content: "This is question number 2, it'll be different than question 1 but you pretty much do the same thing and answer it to the best of your ability.",
-    answer1: "good try",
-    answer2: "you suck",
-    answer3: "not even close",
-    answer4: "correct"
-    
-  },
-  {
-    content: "This is question 3",
-    answer1: "good try",
-    answer2: "you suck",
-    answer3: "not even close",
-    answer4: "correct"
-    
-  },
-  {
-    content: "This is question 4",
-    answer1: "good try",
-    answer2: "you suck",
-    answer3: "not even close",
-    answer4: "correct"
-    
-  },
-  {
-    content: "This is question 5",
-    answer1: "good try",
-    answer2: "you suck",
-    answer3: "not even close",
-    answer4: "correct"
-    
-  },
-  {
-    content: "This is question 6",
-    answer1: "good try",
-    answer2: "you suck",
-    answer3: "not even close",
-    answer4: "correct"
-    
-  },
-  {
-    content: "This is question 7",
-    answer1: "good try",
-    answer2: "you suck",
-    answer3: "not even close",
-    answer4: "correct"
-    
-  },
-  {
-    content: "This is question 8",
-    answer1: "good try",
-    answer2: "you suck",
-    answer3: "not even close",
-    answer4: "correct"
-    
-  },
-  {
-    content: "This is question 9",
-    answer1: "good try",
-    answer2: "you suck",
-    answer3: "not even close",
-    answer4: "correct"
-    
-  },
-  {
-    content: "This is question 10",
-    answer1: "good try",
-    answer2: "you suck",
-    answer3: "not even close",
-    answer4: "correct"
-    
-  },
-]
-let question = ''
-let questionIndex = 1
-let totalTime = 2 * 60 * 1000
-let penaltyTime = 15 * 1000
-let tickTime = 1000
-let finalScore = ''
-let highscores = []
-let selectScore = 
-
-// Questions
-function askQuestion() {
-  // Display question card
-  feedback.style.display = "none"
-  questionCard.style.display = "flex"
-  // Set question number and get random question from questions array
-  question = questions[Math.floor(Math.random() * questions.length)]
-  // Insert in HTML
-  questionNumber.innerHTML = `Question ${questionIndex}`
-  questionContent.innerHTML = `${question.content}`
-  answer1.innerHTML = `${question.answer1}`
-  answer2.innerHTML = `${question.answer2}`
-  answer3.innerHTML = `${question.answer3}`
-  answer4.innerHTML = `${question.answer4}`
-}
-function askQuestion() {
-  // Display question card
-  feedback.style.display = "none"
-  questionCard.style.display = "flex"
-  // Set question number and get random question from questions array
-  question = questions[Math.floor(Math.random() * questions.length)]
-  // Insert in HTML
-  questionNumber.innerHTML = `Question ${questionIndex}`
-  questionContent.innerHTML = `${question.content}`
-  answer1.innerHTML = `${question.answer1}`
-  answer2.innerHTML = `${question.answer2}`
-  answer3.innerHTML = `${question.answer3}`
-  answer4.innerHTML = `${question.answer4}`
-}
-
-// Answers
-function answerQuestion(e) {
-  if(e.target.innerHTML !== "correct") {
-    totalTime -= penaltyTime
-  } 
-  questions.splice(question, 1)
-  questionIndex++
-  if(questions.length > 0) {
-    askQuestion()
-  } else {
-    stopQuiz()
-  }
-}
-
-// Timer
-function timer() {
-  // Start timer
-  let interval = setInterval(tick, tickTime)
-  // Format to display readable time 
-  function formatTime(ms) {
-    let minutes = Math.floor(ms / 60000)
-    let seconds = ms % 60000
-    seconds /= 1000
-    if (seconds < 10) {
-      seconds = "0" + seconds
-    }
-    timerLabel.innerHTML = "Time:"
-    timerEl.innerHTML = `${minutes}:${seconds}`
-  }
-  // Decrement timer by 1 second each tick
-  function tick() {
-    totalTime -= tickTime
-    formatTime(totalTime)
-    if(totalTime < 1) {
-      clearInterval(interval)
-      timerEl.innerHTML = '0:00'
-      timerEl.style.color = "red"
-      stopQuiz()
-    } else if(questions.length < 1) {
-      clearInterval(interval)
-      timerEl.style.color = "green"
-      stopQuiz()
-    } 
-  }
-}
-
-// Start/Stop/Reset Quiz
-function startQuiz() {
-  timer()
-  introCard.style.display = "none"
-  askQuestion()  
-}
-function stopQuiz() {
-  calcScore()
-  questionCard.style.display = "none"
-  if(totalTime < 1) {
-    gameOver.style.display = "flex"
-  } else {
-    score.innerHTML = `Final score: ${finalScore}`
-    outroCard.style.display = "flex"
-  }
-}
-function resetQuiz() {
-  totalTime = 2 * 60 * 1000
-  questions = [
+// Global variables
+// Timer variables
+var totalSeconds = 0;
+var secondsElapsed = 0;
+var penaltyTime = 15;
+var interval;
+// Question variables
+var questions = [
     {
-      content: "This is question number 1, it'll have a really interesting question that you have to answer.",
+      content: "This is question 1.",
       answer1: "totally wrong",
       answer2: "correct",
       answer3: "nah",
       answer4: "almost"
     },
     {
-      content: "This is question number 2, it'll be different than question 1 but you pretty much do the same thing and answer it to the best of your ability.",
+      content: "This is question 2.",
       answer1: "good try",
       answer2: "you suck",
       answer3: "not even close",
@@ -288,93 +115,308 @@ function resetQuiz() {
       answer4: "correct"
       
     },
-  ]
-  question = ''
-  questionIndex = 1
-  scoreboardCard.style.display = "none"
-  introCard.style.display = "none"
-  outroCard.style.display = "none"
-  gameOver.style.display = "none"
-  questionCard.style.display = "flex"
-  timerEl.style.color = "#805ad5"
-  timer()
-  askQuestion()
+  ];
+var question = '';
+var questionIndex = 1;
+// Post Quiz Events variables
+var userScore = '';
+var highscore = '';
+var highscores = [];
+
+
+// Timer
+function getFormattedMinutes() {
+    var secondsLeft = totalSeconds - secondsElapsed;
+    var minutesLeft = Math.floor(secondsLeft / 60);
+    var formattedMinutes = minutesLeft;
+    return formattedMinutes;
 }
 
-// Scores
-function calcScore() {
-  let finalTime = timerEl.innerHTML
-  let finalMinute = parseInt(finalTime.charAt(0))
-  let finalSecond = finalTime.charAt(2) + finalTime.charAt(3)
-  finalScore = (finalMinute * 60) + parseInt(finalSecond)
+function getFormattedSeconds() {
+    var secondsLeft = (totalSeconds - secondsElapsed) % 60;
+    var formattedSeconds;
+    if (secondsLeft < 10) {
+        formattedSeconds = "0" + secondsLeft;
+    } else {
+        formattedSeconds = secondsLeft;
+    }
+    return formattedSeconds;
 }
-function submitScore(event) {
-  event.preventDefault();
-  init()
-  outroCard.style.display = "none"
-  scoreboardCard.style.display = "flex"
-  let addUserScore = finalScore + ` - ${userInput.value}`
-  let newScore = document.createElement("li")
-  newScore.textContent = addUserScore
-  scoreboard.appendChild(newScore)
-  let userText = userInput.value.trim()
-  // highscores.push(userText)
-  // userInput.value = ""
-  // storeHighscores();
-  // renderHighscores();
+
+function setTime() {
+    totalSeconds = 2 * 60;
 }
-function deleteScore(event){
-    let element = event.target
-    console.log(element)
-    // Get its data-index value and remove the highscore from the scoreboard
-    let index = element.getAttribute("data-index")
-    highscores.splice(index, 1)
-    storeHighscores()
-    renderHighscores()
+
+function renderTime() {
+    timerMinutesEl.innerHTML = getFormattedMinutes();
+    timerSecondsEl.innerHTML = getFormattedSeconds();
 }
-function showHighscores() {
-  scoreboardCard.style.display = "flex"
-  introCard.style.display = "none"
-  outroCard.style.display = "none"
-  questionCard.style.display = "none"
+
+function startTimer() {
+    setTime();
+    interval = setInterval(function() {
+        secondsElapsed++;
+        renderTime();
+        if(secondsElapsed >= totalSeconds || questions.length < 1){
+            stopTimer();
+            stopQuiz();
+        }
+    }, 1000);
 }
-function renderHighscores() {
-  // Clear scoreboard
-  scoreboard.innerHTML = "";
-  // Render a new li for each highscore
-  for (var i = 0; i < scoreboard.length; i++) {
-    let highscore = highscores[i]
-    let li = document.createElement("li")
-    li.textContent = highscore
-    li.setAttribute("data-index", i)
-    scoreboard.appendChild(li);
+
+function stopTimer() {
+    clearInterval(interval);
+    if(secondsElapsed >= totalSeconds){
+        timerMinutesEl.style.color = "red";
+        timerSecondsEl.style.color = "red";
+        timerMinutesEl.innerHTML = "0";
+        timerSecondsEl.innerHTML = "00";
+    } else {
+        renderTime();
+    }
+}
+
+
+// Questions
+function askQuestion() {
+    // Set question number and get random question from questions array
+    question = questions[Math.floor(Math.random() * questions.length)];
+    // Insert in HTML
+    questionNumberEl.innerHTML = 'Question ' + questionIndex;
+    questionContentEl.innerHTML = question.content;
+    clearAnswerList();
+    for(i = 1; i < 5; i++) {
+        var index = i;
+        // Find the each answer in the choosen question and create li
+        var answer = Object.values(question);
+        var li = document.createElement("li");
+        li.innerHTML = answer[index];
+        answerListEl.appendChild(li);
+    } 
+}
+
+function answerQuestion(e) {
+    if(e.target.innerHTML !== "correct") {
+        secondsElapsed += penaltyTime;
+        setTimeout(function(){
+            feedbackWrongEl.style.display = "block";
+        }, 1000);
+    } else {
+        setTimeout(function(){
+            feedbackCorrectEl.style.display = "block";
+        }, 1000);
+    }
+    feedbackWrongEl.style.display = "none";
+    feedbackCorrectEl.style.display = "none";
+    questions.splice(question, 1);
+    questionIndex++;
+    if(questions.length > 0) {
+        askQuestion();
+    } else {
+        stopQuiz();
+    }
   }
+
+function clearAnswerList(){
+    while (answerListEl.firstChild) {
+        answerListEl.firstChild.remove();
+    }
+}
+
+
+// Post Quiz Events
+function stopQuiz() {
+    if(secondsElapsed >= totalSeconds) {
+        questionCardEl.style.display = "none";
+        failCardEl.style.display = "flex";
+    } else {
+        questionCardEl.style.display = "none";
+        successCardEl.style.display = "flex";
+        calcScore();
+    }
+}
+
+// function resetQuiz() {
+//     totalTime = 2 * 60 * 1000
+//     questions = [
+//       {
+//         content: "This is question number 1, it'll have a really interesting question that you have to answer.",
+//         answer1: "totally wrong",
+//         answer2: "correct",
+//         answer3: "nah",
+//         answer4: "almost"
+//       },
+//       {
+//         content: "This is question number 2, it'll be different than question 1 but you pretty much do the same thing and answer it to the best of your ability.",
+//         answer1: "good try",
+//         answer2: "you suck",
+//         answer3: "not even close",
+//         answer4: "correct"
+        
+//       },
+//       {
+//         content: "This is question 3",
+//         answer1: "good try",
+//         answer2: "you suck",
+//         answer3: "not even close",
+//         answer4: "correct"
+        
+//       },
+//       {
+//         content: "This is question 4",
+//         answer1: "good try",
+//         answer2: "you suck",
+//         answer3: "not even close",
+//         answer4: "correct"
+        
+//       },
+//       {
+//         content: "This is question 5",
+//         answer1: "good try",
+//         answer2: "you suck",
+//         answer3: "not even close",
+//         answer4: "correct"
+        
+//       },
+//       {
+//         content: "This is question 6",
+//         answer1: "good try",
+//         answer2: "you suck",
+//         answer3: "not even close",
+//         answer4: "correct"
+        
+//       },
+//       {
+//         content: "This is question 7",
+//         answer1: "good try",
+//         answer2: "you suck",
+//         answer3: "not even close",
+//         answer4: "correct"
+        
+//       },
+//       {
+//         content: "This is question 8",
+//         answer1: "good try",
+//         answer2: "you suck",
+//         answer3: "not even close",
+//         answer4: "correct"
+        
+//       },
+//       {
+//         content: "This is question 9",
+//         answer1: "good try",
+//         answer2: "you suck",
+//         answer3: "not even close",
+//         answer4: "correct"
+        
+//       },
+//       {
+//         content: "This is question 10",
+//         answer1: "good try",
+//         answer2: "you suck",
+//         answer3: "not even close",
+//         answer4: "correct"
+        
+//       },
+//     ]
+//     question = ''
+//     questionIndex = 1
+//     scoreboardCard.style.display = "none"
+//     introCard.style.display = "none"
+//     outroCard.style.display = "none"
+//     gameOver.style.display = "none"
+//     questionCard.style.display = "flex"
+//     timerEl.style.color = "#805ad5"
+//     timer()
+//     askQuestion()
+//   }
+
+function calcScore() {
+    var userMinutes = timerMinutesEl.innerHTML;
+    var userSeconds = timerSecondsEl.innerHTML;
+    userScore = parseInt(userMinutes * 60) + parseInt(userSeconds);
+    showScoreEl.innerHTML = "Final Score: " + userScore;
+}
+
+// Highscores
+init();
+function renderHighscores() {
+    highscoreListEl.innerHTML = "";
+    for (var i = 0; i < highscores.length; i++) {
+        var highscore = highscores[i];
+        var li = document.createElement("li");
+        li.textContent = highscore;
+        li.setAttribute("data-index", i);
+        var button = document.createElement("button");
+        button.textContent = "Delete Score";
+        li.appendChild(button);
+        highscoreListEl.appendChild(li);
+    }
 }
 function init() {
   // Get stored highscores from localStorage
-  // Parsing the JSON string to an object
   var storedHighscores = JSON.parse(localStorage.getItem("highscores"));
   // If highscores were retrieved from localStorage, update the highscores array to it
   if (storedHighscores !== null) {
-    highscores = storedHighscores
+    highscores = storedHighscores;
   }
   // Render highscores to the DOM
-  renderHighscores()
+  renderHighscores();
 }
+
 function storeHighscores() {
   // Stringify and set highscores key in localStorage to highscores array
   localStorage.setItem("highscores", JSON.stringify(highscores));
 }
 
-// Buttons
-startBtn.addEventListener('click', startQuiz)
-answer1.addEventListener('click', answerQuestion)
-answer2.addEventListener('click', answerQuestion)
-answer3.addEventListener('click', answerQuestion)
-answer4.addEventListener('click', answerQuestion)
-scoreForm.addEventListener("submit", submitScore)
-resetBtn1.addEventListener('click', resetQuiz)
-clearScore.addEventListener('click', deleteScore)
-viewHighscores.addEventListener('click', showHighscores)
-resetBtn2.addEventListener('click', resetQuiz)
+
+
+
+
+
+
+// Event Listeners
+startQuizBtn.addEventListener('click', function(){
+    introCardEl.style.display = "none";
+    questionCardEl.style.display = "flex";
+    startTimer();
+    askQuestion();
+});
+
+answerListEl.addEventListener("click", answerQuestion);
+
+submitFormBtn.addEventListener('click', function() {
+    successCardEl.style.display = "none";
+    highscoresCardEl.style.display = "flex";
+});
+
+scoreForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+    var scoreText = userScore + " - " + userInput.value.trim();
+    // Return from function early if submitted scoreText is blank
+    if (scoreText === "") {
+      return;
+    }
+    // Add new scoreText to highscores array, clear the input
+    highscores.push(scoreText);
+    userInput.value = "";
+    // Store updated highscores in localStorage, re-render the list
+    storeHighscores();
+    renderHighscores();
+  });
+  
+  // When a element inside of the todoList is clicked...
+  highscoreListEl.addEventListener("click", function(event) {
+    var element = event.target;
+    // If that element is a button...
+    if (element.matches("button") === true) {
+      // Get its data-index value and remove the todo element from the list
+      var index = element.parentElement.getAttribute("data-index");
+      highscores.splice(index, 1);
+      // Store updated highscores in localStorage, re-render the list
+      storeHighscores();
+      renderHighscores();
+    }
+  });
+
 

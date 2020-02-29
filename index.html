@@ -10,65 +10,60 @@
 <body class="">
     <header>
       <nav class="flex justify-between p-6 mb-6">
-        <!-- View Highscores -->
+        <!-- View Highscores button-->
         <div class="flex items-center mr-6">
-          <a class="text-4xl text-purple-600 hover:text-purple-300" id="viewHighscores">View Highscores</a>
+          <button class="select-none text-4xl text-purple-600 p-2 border-2 border-purple-600 rounded-lg hover:bg-purple-600 hover:text-white" id="view-highscores">View Highscores</button>
         </div>
-        <!-- Timer -->
-        <div class="flex items-center ml-6">
-          <div class="inline-block text-4xl text-purple-600 pr-1" id="timerLabel"></div>
-          <div class="inline-block text-4xl text-purple-600" id="timer"></div>
+        <!-- Timer Card-->
+        <div class="flex items-center w-1/6 ml-6 border-2 border-purple-600 rounded-lg px-2" id="timer-card">
+          <div class="text-4xl text-purple-600 pr-1">Time:</div>
+          <div class="text-4xl text-purple-600" id="timer-minutes">2</div>
+          <div class="self-start text-2xl mt-3 text-purple-600" id="timer-seconds">00</div>
         </div>
         </div>
       </nav>
     </header>
     <main class="h-screen mx-auto">
       <!-- Introduction Card -->
-      <div class="flex flex-col items-center text-center mx-5 p-3 border-4 border-purple-800 rounded-lg" id="introCard">
+      <div class="flex flex-col items-center text-center mx-5 p-3 border-4 border-purple-800 rounded-lg" id="intro-card">
         <h1 class="select-none font-sans text-6xl text-purple-800 mb-4">Coding Quiz</h1>
         <div class="select-none font-sans text-3xl text-purple-600 mb-6">This is a multiple choice coding assessment. You will be given 2 minutes to answer 10 questions. Incorrect answers will be penalized by deducting 15 seconds from the timer. Highscores are based on total time left after answering all 10 questions.</div>
         <div class="flex justify-center mb-4">
-          <button class="select-none text-2xl p-2 border-2 border-purple-600 rounded hover:bg-purple-600 hover:text-white" id="start">Start Quiz!</button>
+          <button class="select-none text-2xl text-purple-600 p-2 border-2 border-purple-600 rounded hover:bg-purple-600 hover:text-white" id="start-quiz">Start Quiz!</button>
         </div>
       </div>
-      <!-- Questions -->
-      <div class="flex flex-col mx-5 p-3 border-4 border-purple-800 rounded-lg hidden" id="questionCard">
-        <div class="select-none font-sans text-5xl text-purple-800 mb-3" id="questionNumber">Question 1</div>
-        <div class="select-none font-sans text-3xl text-purple-600 mb-6" id="questionContent">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum voluptas rerum aut temporibus ad vel maxime, magnam sequi facere sunt officiis placeat veritatis tempore quisquam repellendus corrupti explicabo, qui labore quis itaque amet eligendi aspernatur. Quidem architecto nihil totam ducimus corrupti laboriosam sunt aspernatur aperiam nostrum facere! Praesentium, maxime ab.</div>
-        <ul class="flex flex-col mb-4">
-          <li class="select-none p-2 font-sans text-white text-3xl mb-4 mx-3 border rounded bg-purple-800 hover:bg-purple-600" id="answer1">Answer 1</li>
-          <li class="select-none p-2 font-sans text-white text-3xl mb-4 mx-3 border rounded bg-purple-800 hover:bg-purple-600" id="answer2">Answer 2</li>
-          <li class="select-none p-2 font-sans text-white text-3xl mb-4 mx-3 border rounded bg-purple-800 hover:bg-purple-600" id="answer3">Answer 3</li>
-          <li class="select-none p-2 font-sans text-white text-3xl mb-4 mx-3 border rounded bg-purple-800 hover:bg-purple-600" id="answer4">Answer 4</li>
-        </ul>
-        <div class="hidden text-lg mx-3 px-2 pt-1 border-t border-red-500 text-red-500" id="feedback">Wrong</div>
+      <!-- Questions Card -->
+      <div class="hidden flex flex-col mx-5 p-5 border-4 border-purple-800 rounded-lg" id="question-card">
+        <div class="select-none font-sans text-5xl text-purple-800 mb-3" id="question-number">Question 1</div>
+        <div class="select-none font-sans text-3xl text-purple-600 mb-6" id="question-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum voluptas rerum aut temporibus ad vel maxime, magnam sequi facere sunt officiis placeat veritatis tempore quisquam repellendus corrupti explicabo, qui labore quis itaque amet eligendi aspernatur. Quidem architecto nihil totam ducimus corrupti laboriosam sunt aspernatur aperiam nostrum facere! Praesentium, maxime ab.</div>
+        <ul class="flex flex-col mb-4" id="answer-list"></ul>
+        <div class="hidden text-xl mx-3 px-2 pt-1 border-t border-red-500 text-red-500 italic" id="feedback-wrong">Wrong!</div>
+        <div class="hidden text-xl mx-3 px-2 pt-1 border-t border-green-500 text-green-500 italic" id="feedback-correct">Correct!</div>
       </div>
-      <!-- Enter Initials Card -->
-      <div class="flex flex-col items-center mx-5 p-3 border-4 border-purple-800 rounded-lg hidden" id="outroCard">
+      <!-- Success Card -->
+      <div class="hidden flex flex-col items-center mx-5 p-3 border-4 border-purple-800 rounded-lg " id="success-card">
         <h1 class="select-none font-sans text-6xl text-green-500 mb-2">All Done!</h1>
-        <div class="select-none font-sans text-3xl text-purple-600 mb-2" id="score"></div>
-        <form class="flex justify-center mb-4" id="scoreForm" method="POST">
-          <input class="font-sans text-2xl text-purple-600 p-2 mr-3 border rounded shadow" id="userInitials" placeholder="Enter your initials" type="text">
-          <button class="select-none text-2xl p-2 border-2 border-purple-600 rounded hover:bg-purple-600 hover:text-white" id="submit">Submit</button>
+        <div class="select-none font-sans text-3xl text-purple-600 mb-2" id="show-score"></div>
+        <form class="flex justify-center mb-4" id="score-form" method="POST">
+          <input class="font-sans text-2xl text-purple-600 p-2 mr-3 border rounded shadow" placeholder="Enter your initials" type="text" id="user-input">
+          <button class="select-none text-2xl text-purple-600 p-2 border-2 border-purple-600 rounded hover:bg-purple-600 hover:text-white" id="submit">Submit</button>
         </form>
       </div>
-      <!-- Ran out of time Card -->
-      <div class="flex flex-col items-center text-center mx-5 p-3 border-4 border-purple-800 rounded-lg hidden" id="gameOver">
+      <!-- Fail Card -->
+      <div class="hidden flex flex-col items-center text-center mx-5 p-3 border-4 border-purple-800 rounded-lg " id="fail-card">
         <h1 class="select-none font-sans text-6xl text-red-600 mb-2">You Ran Out Of Time!</h1>
         <div class="flex justify-center mb-4">
-          <button class="select-none text-2xl p-2 border-2 border-purple-600 rounded hover:bg-purple-600 hover:text-white" id="tryAgain1">Try Again?</button>
+          <button class="select-none text-2xl text-purple-600 p-2 border-2 border-purple-600 rounded hover:bg-purple-600 hover:text-white" id="fail-reset-quiz">Try Again?</button>
         </div>
       </div>
-      <!-- Scoreboard Card -->
-      <div class="flex flex-col items-center text-center mx-5 p-3 border-4 border-purple-800 rounded-lg hidden" id="scoreboardCard">
+      <!-- Highscores Card -->
+      <div class="hidden flex flex-col items-center text-center mx-5 p-3 border-4 border-purple-800 rounded-lg " id="highscores-card">
         <h1 class="select-none font-sans text-6xl text-purple-800 mb-2">Highscores</h1>
         <div class="flex w-1/3 mb-6">
-          <ol class="flex flex-col w-full" id="scoreboard"></ol>
+          <ol class="flex flex-col w-full" id="highscore-list"></ol>
         </div>
-        <div class="flex flex-row justify-center mb-4">
-          <button class="select-none text-2xl p-2 mr-2 border-2 border-purple-600 rounded hover:bg-purple-600 hover:text-white" id="tryAgain2">Try Again?</button>
-          <button class="select-none text-2xl p-2 ml-2 border-2 border-purple-600 rounded hover:bg-purple-600 hover:text-white" id="clearScore">Clear score</button>
-        </div>
+        <div class="flex flex-col justify-center mb-4">
+          <button class="select-none text-2xl text-purple-600 p-2 mr-2 border-2 border-purple-600 rounded hover:bg-purple-600 hover:text-white" id="success-reset-quiz">Try Again?</button>        </div>
       </div>
     </main>
   
