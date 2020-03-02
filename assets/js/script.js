@@ -138,7 +138,7 @@ function getFormattedSeconds() {
 }
 
 function setTime() {
-  totalSeconds = 2 * 60;
+  totalSeconds = 3 * 60;
 }
 
 function renderTime() {
@@ -330,7 +330,6 @@ function calcScore() {
   var userSeconds = timerSecondsEl.innerHTML;
   userScore = parseInt(userMinutes * 60) + parseInt(userSeconds);
   showScoreEl.innerHTML = "Final Score: " + userScore;
-  console.log(timerMinutesEl.innerHTML)
 }
 
 // Highscores
@@ -423,5 +422,5 @@ viewHighscoresBtn.addEventListener("click", function() {
 });
 
 // Reset button
-succResetBtn.onclick = resetQuiz
-failResetBtn.onclick = resetQuiz
+succResetBtn.onclick = resetQuiz;
+failResetBtn.onclick = resetQuiz;
