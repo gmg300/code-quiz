@@ -17,8 +17,8 @@
         <!-- Timer Card-->
         <div class="select-none flex items-center justify-center min-w-1/6 border-2 border-purple-600 rounded-lg" id="timer-card">
           <div class="text-4xl text-purple-600 pl-2 pr-1">Time:</div>
-          <div class="text-4xl text-purple-600" id="timer-minutes">3</div>
-          <div class="self-start text-2xl mt-3 text-purple-600 pr-2" id="timer-seconds">00</div>
+          <div class="text-4xl" id="timer-minutes"></div>
+          <div class="self-start text-2xl mt-3 pr-2" id="timer-seconds"></div>
         </div>
         </div>
       </nav>
@@ -33,7 +33,7 @@
         </div>
       </div>
       <!-- Questions Card -->
-      <div class="hidden flex flex-col mx-5 p-5 border-4 border-purple-800 rounded-lg" id="question-card">
+      <div class="flex flex-col mx-5 p-5 border-4 border-purple-800 rounded-lg" id="question-card">
         <div class="select-none font-sans text-5xl text-purple-800 mb-3" id="question-number">Question 1</div>
         <div class="select-none font-sans text-3xl text-purple-600 mb-6" id="question-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum voluptas rerum aut temporibus ad vel maxime, magnam sequi facere sunt officiis placeat veritatis tempore quisquam repellendus corrupti explicabo, qui labore quis itaque amet eligendi aspernatur. Quidem architecto nihil totam ducimus corrupti laboriosam sunt aspernatur aperiam nostrum facere! Praesentium, maxime ab.</div>
         <ul class="flex flex-col mb-2" id="answer-list"></ul>
@@ -41,7 +41,7 @@
         <div class="hidden text-2xl text-center mx-3 px-2 py-2 border rounded bg-green-500 text-white" id="feedback-correct">Correct!</div>
       </div>
       <!-- Success Card -->
-      <div class="hidden flex flex-col items-center mx-5 p-3 border-4 border-purple-800 rounded-lg " id="success-card">
+      <div class="flex flex-col items-center mx-5 p-3 border-4 border-purple-800 rounded-lg " id="success-card">
         <h1 class="select-none font-sans text-6xl text-green-500 mb-2">All Done!</h1>
         <div class="select-none font-sans text-3xl text-purple-600 mb-2" id="show-score"></div>
         <form class="flex justify-center mb-4" id="score-form" method="POST">
@@ -50,14 +50,14 @@
         </form>
       </div>
       <!-- Fail Card -->
-      <div class="hidden flex flex-col items-center text-center mx-5 p-3 border-4 border-purple-800 rounded-lg " id="fail-card">
+      <div class="lex flex-col items-center text-center mx-5 p-3 border-4 border-purple-800 rounded-lg " id="fail-card">
         <h1 class="select-none font-sans text-6xl text-red-600 mb-2">You Ran Out Of Time!</h1>
         <div class="flex justify-center mb-4">
           <button class="select-none text-2xl text-purple-600 p-2 border-2 border-purple-600 rounded hover:bg-purple-600 hover:text-white" id="fail-reset-quiz">Try Again?</button>
         </div>
       </div>
       <!-- Highscores Card -->
-      <div class="hidden flex flex-col items-center text-center mx-5 p-3 border-4 border-purple-800 rounded-lg " id="highscores-card">
+      <div class="flex flex-col items-center text-center mx-5 p-3 border-4 border-purple-800 rounded-lg " id="highscores-card">
         <h1 class="select-none font-sans text-6xl text-purple-800 mb-2">Highscores</h1>
         <div class="flex w-1/3 mb-6">
           <ol class="flex flex-col w-full" id="highscore-list"></ol>
@@ -67,7 +67,7 @@
       </div>
     </main>
   
-
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="assets/js/script.js"></script>
 </body>
 </html>
