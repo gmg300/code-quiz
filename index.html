@@ -40,30 +40,25 @@
         <div class="hidden text-2xl text-center mx-3 px-2 py-2 border rounded bg-red-600 text-white" id="feedback-wrong">Wrong!</div>
         <div class="hidden text-2xl text-center mx-3 px-2 py-2 border rounded bg-green-500 text-white" id="feedback-correct">Correct!</div>
       </div>
-      <!-- Success Card -->
-      <div class="flex flex-col items-center mx-5 p-3 border-4 border-purple-800 rounded-lg " id="success-card">
-        <h1 class="select-none font-sans text-6xl text-green-500 mb-2">All Done!</h1>
-        <div class="select-none font-sans text-3xl text-purple-600 mb-2" id="show-score"></div>
+      <!-- Score Card -->
+      <div class="flex flex-col items-center mx-5 p-3 border-4 border-purple-800 rounded-lg " id="score-card">
+        <h1 class="select-none font-sans text-6xl text-purple-600 mb-2" id="score-message">Game Over!</h1>
+        <div class="select-none font-sans text-3xl text-purple-600 mb-4" id="final-score"></div>
         <form class="flex justify-center mb-4" id="score-form" method="POST">
           <input class="font-sans text-2xl text-purple-600 p-2 mr-3 border rounded shadow" placeholder="Enter your initials" type="text" id="user-input">
           <button class="select-none text-2xl text-purple-600 p-2 border-2 border-purple-600 rounded hover:bg-purple-600 hover:text-white" id="submit">Submit</button>
         </form>
-      </div>
-      <!-- Fail Card -->
-      <div class="lex flex-col items-center text-center mx-5 p-3 border-4 border-purple-800 rounded-lg " id="fail-card">
-        <h1 class="select-none font-sans text-6xl text-red-600 mb-2">You Ran Out Of Time!</h1>
-        <div class="flex justify-center mb-4">
-          <button class="select-none text-2xl text-purple-600 p-2 border-2 border-purple-600 rounded hover:bg-purple-600 hover:text-white" id="fail-reset-quiz">Try Again?</button>
-        </div>
+        <button class="reset-quiz select-none text-2xl text-purple-600 p-2 border-2 border-purple-600 rounded hover:bg-purple-600 hover:text-white">Try Again?</button>
       </div>
       <!-- Highscores Card -->
       <div class="flex flex-col items-center text-center mx-5 p-3 border-4 border-purple-800 rounded-lg " id="highscores-card">
         <h1 class="select-none font-sans text-6xl text-purple-800 mb-2">Highscores</h1>
         <div class="flex w-1/3 mb-6">
-          <ol class="flex flex-col w-full" id="highscore-list"></ol>
+          <ol class="flex flex-col w-full" id="highscores-list"></ol>
         </div>
         <div class="flex flex-col justify-center mb-4">
-          <button class="select-none text-2xl text-purple-600 p-2 mr-2 border-2 border-purple-600 rounded hover:bg-purple-600 hover:text-white" id="success-reset-quiz">Try Again?</button>        </div>
+          <button class="reset-quiz select-none text-2xl text-purple-600 p-2 mr-2 border-2 border-purple-600 rounded hover:bg-purple-600 hover:text-white">Try Again?</button>
+        </div>
       </div>
     </main>
   

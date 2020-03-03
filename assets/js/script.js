@@ -1,19 +1,13 @@
 $(document).ready(function() {
-  // Nav elements
-  // Success Card elements
-  var showScoreEl = document.getElementById("show-score");
-  var userInput = document.getElementById("user-input");
-  // Highscores Card elements
-  var highscoreListEl = document.getElementById("highscore-list");
+
+  init();
 
   // Card Switching
   var card = "introCard";
-  renderCard();
   function renderCard() {
     $("#intro-card").hide();
     $("#question-card").hide();
-    $("#success-card").hide();
-    $("#fail-card").hide();
+    $("#score-card").hide();
     $("#highscores-card").hide();
     switch (card) {
       case "introCard":
@@ -22,17 +16,15 @@ $(document).ready(function() {
       case "questionCard":
         $("#question-card").show();
         break;
-      case "successCard":
-        $("#success-card").show();
-        break;
-      case "failCard":
-        $("#fail-card").show();
+      case "scoreCard":
+        $("#score-card").show();
         break;
       case "highscoresCard":
         $("#highscores-card").show();
         break;
     }
   }
+
 
   // Timer
   var totalSeconds = 0;
@@ -92,6 +84,7 @@ $(document).ready(function() {
       renderTime();
     }
   }
+
 
   // Play Quiz
   var questions = [
@@ -191,9 +184,7 @@ $(document).ready(function() {
 
   function answerQuestion() {
     var correct = question.correct;
-    console.log(correct);
     var choice = event.target;
-    console.log(choice);
     if (choice.textContent !== correct) {
       secondsElapsed += penaltyTime;
       $("#feedback-wrong").show();
@@ -224,184 +215,176 @@ $(document).ready(function() {
   }
 
   function stopQuiz() {
+    card = 'scoreCard';
     renderCard();
     stopTimer();
-    calcScore();
-    renderFinalScore();
-  }
-
-  // Post Quiz
-  var highscores = [];
-  var userScore;
-
-  function renderFinalScore() {
-    var userMinutes = $("#timer-minutes").text();
-    var userSeconds = $("#timer-seconds").text();
-    userScore = parseInt(userMinutes * 60) + parseInt(userSeconds);
-    showScoreEl.innerHTML = "Final Score: " + userScore;
-  }
-
-  function resetQuiz() {}
-
-  // function resetQuiz() {
-  //   totalSeconds = 0;
-  //   secondsElapsed = 0;
-  //   setTime()
-  //   renderTime()
-  //   questions = [
-  //     {
-  //       content: "The temple of Preah Vihear is located in which country?",
-  //       wrong1: "India",
-  //       correct: "Cambodia",
-  //       wrong2: "Indonesia",
-  //       wrong3: "Mongolia"
-  //     },
-  //     {
-  //       content: "Minsk is the capital of which country?",
-  //       wrong1: "Estonia",
-  //       wrong2: "Romania",
-  //       wrong3: "Hungary",
-  //       correct: "Belarus"
-  //     },
-  //     {
-  //       content:
-  //         "The city, once known as Edo and now one of the largest cities in the world is in which country?",
-  //       correct: "Japan",
-  //       wrong1: "India",
-  //       wrong2: "Brazil",
-  //       wrong3: "Mexico"
-  //     },
-  //     {
-  //       content: "The temple of Prambanan is located in which country?",
-  //       wrong1: "Malaysia",
-  //       wrong2: "Thailand",
-  //       wrong3: "India",
-  //       correct: "Indonesia"
-  //     },
-  //     {
-  //       content: "Dodoma is the capital of which country?",
-  //       wrong1: "Morroco",
-  //       correct: "Tanzania",
-  //       wrong2: "Sudan",
-  //       wrong3: "Bolivia"
-  //     },
-  //     {
-  //       content: "Xochicalco is located in which country?",
-  //       wrong1: "Peru",
-  //       correct: "Mexico",
-  //       wrong2: "Chile",
-  //       wrong3: "Costa Rica"
-  //     },
-  //     {
-  //       content: "The city of Allepo is in which country?",
-  //       wrong1: "Iran",
-  //       wrong2: "Spain",
-  //       wrong3: "Angola",
-  //       correct: "Syria"
-  //     },
-  //     {
-  //       content: "Karachi is in what country?",
-  //       correct: "Pakistan",
-  //       wrong1: "Iran",
-  //       wrong2: "India",
-  //       wrong3: "Nepal"
-  //     },
-  //     {
-  //       content: "The ancient city of Carthage is in which country?",
-  //       correct: "Tunisia",
-  //       wrong1: "Greece",
-  //       wrong2: "Italy",
-  //       wrong3: "Turkey"
-  //     },
-  //     {
-  //       content: "Lagos is in what country?",
-  //       wrong1: "Panama",
-  //       wrong2: "Peru",
-  //       correct: "Nigeria",
-  //       wrong3: "Mexico"
-  //     }
-  //   ];
-  //   randomQuestionNumber = "";
-  //   question = "";
-  //   questionIndex = 1;
-  //   introCardEl.style.display = "flex";
-  //   questionCardEl.style.display = "none";
-  //   feedbackWrongEl.style.display = "none";
-  //   feedbackCorrectEl.style.display = "none";
-  //   successCardEl.style.display = "none";
-  //   failCardEl.style.display = "none";
-  //   highscoresCardEl.style.display = "none";
-  // }
-
-  // Highscores
-  init();
-  function renderHighscores() {
-    highscoreListEl.innerHTML = "";
-    for (var i = 0; i < highscores.length; i++) {
-      var highscore = highscores[i];
-      var li = document.createElement("li");
-      li.textContent = highscore;
-      li.setAttribute("data-index", i);
-      var button = document.createElement("button");
-      button.textContent = "Delete Score";
-      li.appendChild(button);
-      highscoreListEl.appendChild(li);
-    }
+    calcUserScore();
+    renderUserScore();
   }
 
   function init() {
-    // Get stored highscores from localStorage
+    totalSeconds = 0;
+    secondsElapsed = 0;
+    setTime();
+    questions = [
+      {
+        content: "The temple of Preah Vihear is located in which country?",
+        wrong1: "India",
+        correct: "Cambodia",
+        wrong2: "Indonesia",
+        wrong3: "Mongolia"
+      },
+      {
+        content: "Minsk is the capital of which country?",
+        wrong1: "Estonia",
+        wrong2: "Romania",
+        wrong3: "Hungary",
+        correct: "Belarus"
+      },
+      {
+        content:
+          "The city, once known as Edo and now one of the largest cities in the world is in which country?",
+        correct: "Japan",
+        wrong1: "India",
+        wrong2: "Brazil",
+        wrong3: "Mexico"
+      },
+      {
+        content: "The temple of Prambanan is located in which country?",
+        wrong1: "Malaysia",
+        wrong2: "Thailand",
+        wrong3: "India",
+        correct: "Indonesia"
+      },
+      {
+        content: "Dodoma is the capital of which country?",
+        wrong1: "Morroco",
+        correct: "Tanzania",
+        wrong2: "Sudan",
+        wrong3: "Bolivia"
+      },
+      {
+        content: "Xochicalco is located in which country?",
+        wrong1: "Peru",
+        correct: "Mexico",
+        wrong2: "Chile",
+        wrong3: "Costa Rica"
+      },
+      {
+        content: "The city of Allepo is in which country?",
+        wrong1: "Iran",
+        wrong2: "Spain",
+        wrong3: "Angola",
+        correct: "Syria"
+      },
+      {
+        content: "Karachi is in what country?",
+        correct: "Pakistan",
+        wrong1: "Iran",
+        wrong2: "India",
+        wrong3: "Nepal"
+      },
+      {
+        content: "The ancient city of Carthage is in which country?",
+        correct: "Tunisia",
+        wrong1: "Greece",
+        wrong2: "Italy",
+        wrong3: "Turkey"
+      },
+      {
+        content: "Lagos is in what country?",
+        wrong1: "Panama",
+        wrong2: "Peru",
+        correct: "Nigeria",
+        wrong3: "Mexico"
+      }
+    ];
+    randomQuestionNumber = '';
+    question = '';
+    questionIndex = 1;
+    card = 'introCard';
+    renderCard();
+  }
+
+
+  // User Score
+  var userScore;
+
+  function calcUserScore() {
+    var userMinutes = $("#timer-minutes").text();
+    var userSeconds = $("#timer-seconds").text();
+    userScore = parseInt(userMinutes * 60) + parseInt(userSeconds);
+  }
+
+  function renderUserScore() {
+    if(userScore == 0) {
+      $('#score-form').hide();
+      $('#final-score').css('color', '#e53e3e');
+    }
+    $('#final-score').text("Final Score: " + userScore);
+    $('#final-score').css('color', '#48bb78');
+  }
+  
+
+  // Highscores
+  var highscores = [];
+  getHighscores();
+
+  function getHighscores() { // Get stored highscores from localStorage
     var storedHighscores = JSON.parse(localStorage.getItem("highscores"));
-    // If highscores were retrieved from localStorage, update the highscores array to it
-    if (storedHighscores !== null) {
+    if (storedHighscores !== null) { // If highscores were retrieved from localStorage, update the highscores array to it
       highscores = storedHighscores;
     }
-    // Render highscores to the DOM
     renderHighscores();
   }
 
+  function renderHighscores() {
+    $('#highscores-list').empty(); // "Refresh" highscores list to be re-rendered
+    for (var i = 0; i < highscores.length; i++) { // append each highscore with its own delete button
+      var highscore = highscores[i];
+      var li = $('<li>');
+      li.text(highscore);
+      li.attr("data-index", i);
+      var button = $('<button>');
+      button.text('Delete Score');
+      li.append(button);
+      $('#highscores-list').append(li);
+    }
+  }
+
   function storeHighscores() {
-    // Stringify and set highscores key in localStorage to highscores array
     localStorage.setItem("highscores", JSON.stringify(highscores));
   }
 
+  function submitHighscore(e) { // Switch card and push new highscores to array
+    card = "highscoresCard";
+    renderCard();
+    e.preventDefault();
+    var userInput = $('#user-input').val();
+    var scoreText = userScore + ' - ' + userInput;
+    highscores.push(scoreText); // Add new scoreText to highscores array, clear the input
+    $('#user-input').val('');
+    storeHighscores(); // Store updated highscores in localStorage, re-render the list
+    renderHighscores();
+  }
+
   // Event Listeners
-  // Start quiz
   $("#start-quiz").on("click", function() {
     card = "questionCard";
     startQuiz();
   });
 
-  // Answer question
   $("#answer-list").on("click", function() {
     answerQuestion();
   });
 
-  // Submit initials and score
-  $("#submit").on("click", function() {
-    card = "highscoresCard";
-    renderCard();
-  });
-
-  // Push new initials and score to highscores array
-  $("#score-form").on("submit", function(event) {
-    event.preventDefault();
-    var scoreText = userScore + " - " + userInput.value.trim();
-    // if(userInput == "") {
-    //   userInput = "Anon"
-    //   scoreText = userScore + " - " + userInput.value.trim();
-    // }
-    // Add new scoreText to highscores array, clear the input
-    highscores.push(scoreText);
-    userInput.value = "";
-    // Store updated highscores in localStorage, re-render the list
-    storeHighscores();
-    renderHighscores();
+  $("#score-form").on("submit", function(e) { 
+    submitHighscore(e);
   });
 
   // When a element inside of the todoList is clicked...
-  $("#highscore-list").on("click", function(event) {
-    var element = event.target;
+  $("#highscores-list").on("click", function(e) {
+    var element = e.target;
     // If that element is a button...
     if (element.matches("button") === true) {
       // Get its data-index value and remove the todo element from the list
@@ -420,13 +403,6 @@ $(document).ready(function() {
   });
 
   // Reset buttons
-  $("#success-reset-quiz").on("click", function() {
-    card = "introCard";
-    renderCard();
-  });
+  $(".reset-quiz").on("click", init);
 
-  $("#fail-reset-quiz").on("click", function() {
-    card = "introCard";
-    renderCard();
-  });
 });

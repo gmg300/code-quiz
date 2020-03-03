@@ -1,4 +1,4 @@
-#highscore-list li {
+#highscores-list li {
     background-color: #805ad5;
     color: white;
     margin-bottom: .5rem;
@@ -10,7 +10,7 @@
     padding-right: .5rem;
 }
 
-#highscore-list li button {
+#highscores-list li button {
     background-color: white;
     color: #805ad5;
     border: solid 1px #553c9a;
@@ -21,7 +21,7 @@
     padding-left: .25rem;
     padding-right: .25rem;
 }
-#highscore-list li button:hover, #highscore-list li button:active {
+#highscores-list li button:hover, #highscore-list li button:active {
     background-color: #553c9a;
     color: white;
 }
