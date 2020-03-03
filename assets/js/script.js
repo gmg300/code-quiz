@@ -1,10 +1,8 @@
 $(document).ready(function() {
 
-  init();
+  initQuiz(); // initialize quiz settings
 
-  // Card Switching
-  var card = "introCard";
-  function renderCard() {
+  function renderCard(card) { // Switch between cards based on arg
     $("#intro-card").hide();
     $("#question-card").hide();
     $("#score-card").hide();
@@ -56,7 +54,7 @@ $(document).ready(function() {
   }
 
   function renderTime() {
-    $("#timer-minutes").css("color", "#805ad5");
+    $("#timer-minutes").css("color", "#805ad5"); // resets colors every time it's rendered
     $("#timer-seconds").css("color", "#805ad5");
     $("#timer-minutes").text(getFormattedMinutes());
     $("#timer-seconds").text(getFormattedSeconds());
@@ -67,7 +65,7 @@ $(document).ready(function() {
     interval = setInterval(function() {
       secondsElapsed++;
       renderTime();
-      if (secondsElapsed >= totalSeconds) {
+      if (secondsElapsed >= totalSeconds) { // stopQuiz time condition
         stopQuiz();
       }
     }, 1000);
@@ -103,8 +101,7 @@ $(document).ready(function() {
       correct: "Belarus"
     },
     {
-      content:
-        "The city, once known as Edo and now one of the largest cities in the world is in which country?",
+      content: "The city, once known as Edo and now one of the largest cities in the world is in which country?",
       correct: "Japan",
       wrong1: "India",
       wrong2: "Brazil",
@@ -164,65 +161,7 @@ $(document).ready(function() {
   var question;
   var questionIndex = 1;
 
-  function setQuestion() {
-    randomQuestionNumber = Math.floor(Math.random() * questions.length);
-    question = questions[randomQuestionNumber];
-  }
-
-  function renderQuestion() {
-    $("#answer-list").empty();
-    $("#question-number").text("Question " + questionIndex);
-    $("#question-content").text(question.content);
-    for (i = 1; i < 5; i++) {
-      // Find each answer in the selected question and create a li
-      var answer = Object.values(question);
-      var li = $("<li>");
-      li.text(answer[i]);
-      $("#answer-list").append(li);
-    }
-  }
-
-  function answerQuestion() {
-    var correct = question.correct;
-    var choice = event.target;
-    if (choice.textContent !== correct) {
-      secondsElapsed += penaltyTime;
-      $("#feedback-wrong").show();
-      setTimeout(function() {
-        $("#feedback-wrong").hide();
-      }, 1000);
-    } else {
-      $("#feedback-correct").show();
-      setTimeout(function() {
-        $("#feedback-correct").hide();
-      }, 1000);
-    }
-    questions.splice(randomQuestionNumber, 1);
-    questionIndex++;
-    if (questions.length > 0) {
-      setQuestion();
-      renderQuestion();
-    } else {
-      stopQuiz();
-    }
-  }
-
-  function startQuiz() {
-    renderCard();
-    startTimer();
-    setQuestion();
-    renderQuestion();
-  }
-
-  function stopQuiz() {
-    card = 'scoreCard';
-    renderCard();
-    stopTimer();
-    calcUserScore();
-    renderUserScore();
-  }
-
-  function init() {
+  function initQuiz() { // Initialize or reset quiz
     totalSeconds = 0;
     secondsElapsed = 0;
     setTime();
@@ -242,8 +181,7 @@ $(document).ready(function() {
         correct: "Belarus"
       },
       {
-        content:
-          "The city, once known as Edo and now one of the largest cities in the world is in which country?",
+        content: "The city, once known as Edo and now one of the largest cities in the world is in which country?",
         correct: "Japan",
         wrong1: "India",
         wrong2: "Brazil",
@@ -302,8 +240,67 @@ $(document).ready(function() {
     randomQuestionNumber = '';
     question = '';
     questionIndex = 1;
-    card = 'introCard';
-    renderCard();
+    renderCard('introCard');
+  }
+  
+  function startQuiz() {
+    renderCard('questionCard');
+    startTimer();
+    setQuestion();
+    renderQuestion();
+  }
+
+  function stopQuiz() {
+    renderCard('scoreCard');
+    stopTimer();
+    calcUserScore();
+    renderUserScore();
+  }
+
+  function setQuestion() {
+    randomQuestionNumber = Math.floor(Math.random() * questions.length);
+    question = questions[randomQuestionNumber]; // use that random number as index to generate random question
+  }
+
+  function renderQuestion() {
+    $("#answer-list").empty(); // clear answer list 
+    $("#question-number").text("Question " + questionIndex);
+    $("#question-content").text(question.content);
+    for (i = 1; i < 5; i++) { // Find each answer in the selected question and create a li in answer list
+      var answer = Object.values(question);
+      var li = $("<li>");
+      li.text(answer[i]);
+      $("#answer-list").append(li);
+    }
+  }
+
+  function answerQuestion(e) {
+    var correct = question.correct;
+    var choice = e.target;
+    checkAnswer(choice, correct);
+    questions.splice(randomQuestionNumber, 1);
+    questionIndex++;
+    if (questions.length > 0) {
+      setQuestion();
+      renderQuestion();
+    } else {
+      stopQuiz();
+    }
+  }
+
+  function checkAnswer(choice, correct) {
+    if(choice.textContent !== correct) {
+      secondsElapsed += penaltyTime;
+      $("#feedback-wrong").show();
+      setTimeout(function() {
+        $("#feedback-wrong").hide();
+      }, 1000);
+    } else {
+      $("#feedback-correct").show();
+      setTimeout(function() {
+        $("#feedback-correct").hide();
+      }, 1000);
+    }
   }
 
 
@@ -317,12 +314,14 @@ $(document).ready(function() {
   }
 
   function renderUserScore() {
-    if(userScore == 0) {
+    if(userScore === 0) {
       $('#score-form').hide();
-      $('#final-score').css('color', '#e53e3e');
+      $('#final-score').text("Final Score: " + userScore);
+      $('#final-score').addClass('text-red-600');
+    } else {
+      $('#final-score').text("Final Score: " + userScore);
+      $('#final-score').addClass('text-green-500');
     }
-    $('#final-score').text("Final Score: " + userScore);
-    $('#final-score').css('color', '#48bb78');
   }
   
 
@@ -357,8 +356,7 @@ $(document).ready(function() {
   }
 
   function submitHighscore(e) { // Switch card and push new highscores to array
-    card = "highscoresCard";
-    renderCard();
+    renderCard('highscoresCard');
     e.preventDefault();
     var userInput = $('#user-input').val();
     var scoreText = userScore + ' - ' + userInput;
@@ -368,41 +366,34 @@ $(document).ready(function() {
     renderHighscores();
   }
 
-  // Event Listeners
-  $("#start-quiz").on("click", function() {
-    card = "questionCard";
-    startQuiz();
-  });
+  function deleteHighscore(e) {
+    var element = e.target;
+    if (element.matches("button") === true) { // get data index, delete that score, update and re-render
+      var index = element.parentElement.getAttribute("data-index"); 
+      highscores.splice(index, 1);
+      storeHighscores();
+      renderHighscores();
+    }
+  }
 
-  $("#answer-list").on("click", function() {
-    answerQuestion();
-  });
+
+  // Event Listeners
+  $("#start-quiz").on("click", startQuiz);
+
+  $("#answer-list").on("click", answerQuestion);
 
   $("#score-form").on("submit", function(e) { 
     submitHighscore(e);
   });
 
-  // When a element inside of the todoList is clicked...
   $("#highscores-list").on("click", function(e) {
-    var element = e.target;
-    // If that element is a button...
-    if (element.matches("button") === true) {
-      // Get its data-index value and remove the todo element from the list
-      var index = element.parentElement.getAttribute("data-index");
-      highscores.splice(index, 1);
-      // Store updated highscores in localStorage, re-render the list
-      storeHighscores();
-      renderHighscores();
-    }
+    deleteHighscore(e);
   });
 
-  // View highscores button
   $("#view-highscores").on("click", function() {
-    card = "highscoresCard";
-    renderCard();
+    renderCard('highscoresCard');
   });
 
-  // Reset buttons
-  $(".reset-quiz").on("click", init);
+  $(".reset-quiz").on("click", initQuiz);
 
 });
