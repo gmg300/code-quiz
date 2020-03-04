@@ -23,7 +23,7 @@ $(document).ready(function() {
     }
   }
 
-
+  
   // Timer
   var totalSeconds = 0;
   var secondsElapsed = 0;
@@ -35,14 +35,14 @@ $(document).ready(function() {
     renderTime();
   }
 
-  function getFormattedMinutes() {
+  function getFormattedMinutes() { // Partial credit _ Trilogy - 04-Web-APIs - 29-Stu_Timer-App
     var secondsLeft = totalSeconds - secondsElapsed;
     var minutesLeft = Math.floor(secondsLeft / 60);
     var formattedMinutes = minutesLeft;
     return formattedMinutes;
   }
 
-  function getFormattedSeconds() {
+  function getFormattedSeconds() { // Partial credit _ Trilogy - 04-Web-APIs - 29-Stu_Timer-App
     var secondsLeft = (totalSeconds - secondsElapsed) % 60;
     var formattedSeconds;
     if (secondsLeft < 10) {
@@ -329,7 +329,7 @@ $(document).ready(function() {
   var highscores = [];
   getHighscores();
 
-  function getHighscores() { // Get stored highscores from localStorage
+  function getHighscores() { // Get stored highscores from localStorage, Partial credit _ Trilogy - 04-Web-APIs - 27-Stu_Complete-Todos
     var storedHighscores = JSON.parse(localStorage.getItem("highscores"));
     if (storedHighscores !== null) { // If highscores were retrieved from localStorage, update the highscores array to it
       highscores = storedHighscores;
@@ -351,7 +351,7 @@ $(document).ready(function() {
     }
   }
 
-  function storeHighscores() {
+  function storeHighscores() { // Set and name highscores array in local storage, Partial credit _ Trilogy - 04-Web-APIs - 27-Stu_Complete-Todos
     localStorage.setItem("highscores", JSON.stringify(highscores));
   }
 
@@ -366,7 +366,7 @@ $(document).ready(function() {
     renderHighscores();
   }
 
-  function deleteHighscore(e) {
+  function deleteHighscore(e) { // Partial credit _ Trilogy - 04-Web-APIs - 27-Stu_Complete-Todos
     var element = e.target;
     if (element.matches("button") === true) { // get data index, delete that score, update and re-render
       var index = element.parentElement.getAttribute("data-index"); 
