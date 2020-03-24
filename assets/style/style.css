@@ -1,3 +1,7 @@
+body {
+    background-color: #667eea80;
+}
+
 #answer-list li {
     user-select: none;
     cursor: pointer;
